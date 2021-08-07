@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Link from 'next/link'
 import { DataGrid } from '@material-ui/data-grid';
+import { fetchFiles } from '../libs/file_api';
 
 export default function Index() {
 
@@ -61,4 +62,15 @@ export default function Index() {
       </div>
     </Container>
   );
+}
+export async function getStaticPaths() {
+  const data = await fetchFiles();
+  console.log(data);
+  return {
+    props: {
+      files: {
+        ...data
+      },
+    },
+  }
 }
