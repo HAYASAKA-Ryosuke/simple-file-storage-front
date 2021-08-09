@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import Link from 'next/link'
 import { DataGrid } from '@material-ui/data-grid';
 import { fetchFiles } from '../libs/file_api';
+import { Dropzone } from '../components/dropzone';
 
 export default function Index() {
 
@@ -37,7 +38,7 @@ export default function Index() {
     sortable: false,
     width: 90,
     disableClickEventBubbling: true,
-    renderCell: (params: any) => <Button><a href={`http://files/${params.id}/download/`} download>download</a></Button>
+    renderCell: (params: any) => <Button><a href={`http://127.0.0.1:9090/api/files/${params.id}`} download>download</a></Button>
     },
   ];
   const rows = [
@@ -52,6 +53,7 @@ export default function Index() {
   return (
     <Container>
       <div style={{ height: 400, width: '100%' }}>
+        <Dropzone></Dropzone>
         <DataGrid
           rows={rows}
           columns={columns}
@@ -63,7 +65,7 @@ export default function Index() {
     </Container>
   );
 }
-export async function getStaticPaths() {
+export async function getStaticProps({params}) {
   const data = await fetchFiles();
   console.log(data);
   return {
