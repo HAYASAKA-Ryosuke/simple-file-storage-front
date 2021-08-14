@@ -8,7 +8,7 @@ import { DataGrid } from '@material-ui/data-grid';
 import { fetchFiles } from '../libs/file_api';
 import { Dropzone } from '../components/dropzone';
 
-export default function Index() {
+export default function Index({files}) {
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -41,21 +41,12 @@ export default function Index() {
     renderCell: (params: any) => <Button><a href={`http://127.0.0.1:9090/api/files/${params.id}`} download>download</a></Button>
     },
   ];
-  const rows = [
-    { id: 1, title: 'Snow', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 2, title: 'test', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 3, title: 'test', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 4, title: 'test', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 5, title: 'test', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 6, title: 'test', createdAt: Date.now(), updatedAt: Date.now()},
-    { id: 7, title: 'test', createdAt: Date.now(), updatedAt: Date.now()}
-  ];
   return (
     <Container>
       <div style={{ height: 400, width: '100%' }}>
         <Dropzone></Dropzone>
         <DataGrid
-          rows={rows}
+          rows={files}
           columns={columns}
           pageSize={5}
           checkboxSelection
@@ -66,13 +57,14 @@ export default function Index() {
   );
 }
 export async function getStaticProps({params}) {
-  const data = await fetchFiles();
-  console.log(data);
+  let data = await fetchFiles();
+  if (!!!data.files){
+    data.files = [];
+  }
+
   return {
     props: {
-      files: {
-        ...data
-      },
+      files: data.files
     },
   }
 }
