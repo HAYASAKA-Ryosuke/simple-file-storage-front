@@ -1,9 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Link from 'next/link'
 import { DataGrid } from '@material-ui/data-grid';
 import { fetchFiles } from '../libs/file_api';
 import { Dropzone } from '../components/dropzone';
@@ -11,34 +8,34 @@ import { Dropzone } from '../components/dropzone';
 export default function Index({files}) {
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'id', headerName: 'ID', width: 40 },
     {
       field: 'title',
       headerName: 'title',
-      width: 150,
+      width: 350,
       editable: true,
     },
     {
-      field: 'createdAt',
+      field: 'createdat',
       headerName: 'createdAt',
       type: 'datetime',
-      width: 150,
+      width: 250,
       editable: true,
     },
     {
-      field: 'updatedAt',
+      field: 'updatedat',
       headerName: 'updatedAt',
       type: 'datetime',
-      width: 110,
+      width: 250,
       editable: true,
     },
     {
     field: 'downloadUrl',
-    headerName: 'download',
+    headerName: 'DL',
     sortable: false,
-    width: 90,
+    width: 100,
     disableClickEventBubbling: true,
-    renderCell: (params: any) => <Button><a href={`http://127.0.0.1:9090/api/files/${params.id}/download/`} download>download</a></Button>
+    renderCell: (params: any) => <Button><a href={`:9090/api/files/${params.id}/download/`} download>download</a></Button>
     },
   ];
   return (
