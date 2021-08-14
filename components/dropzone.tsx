@@ -19,7 +19,7 @@ export const Dropzone = () => {
   //        'Content-Type': 'multipart/form-data'
   //}
       };
-      fetch(':9090/api/files/', options)
+      fetch(`${location.hostname}:9090/api/files/`, options)
       reader.readAsArrayBuffer(file)
     })
   }, []);

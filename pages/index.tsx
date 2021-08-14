@@ -35,7 +35,7 @@ export default function Index({files}) {
     sortable: false,
     width: 100,
     disableClickEventBubbling: true,
-    renderCell: (params: any) => <Button><a href={`:9090/api/files/${params.id}/download/`} download>download</a></Button>
+    renderCell: (params: any) => <Button><a href={`${location.hostname}:9090/api/files/${params.id}/download/`} download>download</a></Button>
     },
   ];
   return (
