@@ -43,7 +43,7 @@ export default function Index({files}) {
       <div style={{ height: 400, width: '100%' }}>
         <Dropzone></Dropzone>
         <DataGrid
-          rows={files}
+          rows={files? files : []}
           columns={columns}
           pageSize={5}
           checkboxSelection
@@ -53,8 +53,8 @@ export default function Index({files}) {
     </Container>
   );
 }
-export async function getStaticProps({params}) {
-  let data = await fetchFiles();
+export async function getServerSideProps(context) {
+  let data = await fetchFiles(context.req);
   if (!!!data.files){
     data.files = [];
   }

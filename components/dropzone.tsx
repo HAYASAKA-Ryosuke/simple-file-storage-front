@@ -8,7 +8,6 @@ export const Dropzone = () => {
       const reader = new FileReader();
       reader.onload = () => {
         const binaryStr = reader.result;
-	console.log(binaryStr);
       }
       const formData = new FormData();
       formData.append('file', file);
@@ -19,7 +18,7 @@ export const Dropzone = () => {
   //        'Content-Type': 'multipart/form-data'
   //}
       };
-      fetch(`${location.hostname}:9090/api/files/`, options)
+      fetch(`http://${location.hostname}:9090/api/files/`, options)
       reader.readAsArrayBuffer(file)
     })
   }, []);
